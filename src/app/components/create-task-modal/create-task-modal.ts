@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskService } from '../../services/task-service';
 import { Task } from '../../models/task.model';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-create-task-modal',
@@ -32,7 +33,7 @@ export class CreateTaskModal {
       createdAt: new Date(),
     };
 
-    this.taskService.addTask(task).then(() => {
+    this.taskService.addTask(task,this.data.ownerId).then(() => {
       this.dialogRef.close();
     });
   }

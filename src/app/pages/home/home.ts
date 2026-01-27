@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { CreateProjectModal } from '../../components/create-project-modal/create-project-modal';
 import { switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { user } from '@angular/fire/auth';
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
@@ -46,7 +47,27 @@ export class Home {
     })
   );   
   }
+confirmDelete(projectId: string | undefined, event: Event) {
+  event.stopPropagation(); // Prevents the card click from firing
+  
+  if (!projectId) return;
 
+  if (confirm('Are you sure you want to delete this project?')) {
+    this.projectService.deleteProject(projectId)
+      .then(() => {
+      alert('Project deleted successfully');
+        // If the user was looking at the tasks for this project, clear them
+        if (this.selectedProject?.id === projectId) {
+          this.selectedProject = null;
+          this.page = 'projects';
+        }
+      })
+      .catch(err => {
+        console.error('Delete failed:', err);
+        alert('You do not have permission to delete this project.');
+      });
+  }
+}
 openLoginModal() {
   this.dialog.open(LoginModal, {
     data: { mode: 'login' }
@@ -79,13 +100,30 @@ openCreateProjectModal() {
     });
   });
 }
-  openTasks(project: Project) {
-    this.selectedProject = project;
-    this.page = 'tasks';
-    this.tasks$ = this.taskService.getTasks(project.id!);
+openTasks(project: Project) {
+  this.selectedProject = project;
+  this.page = 'tasks';
+  this.tasks$ = this.taskService.getTasks(project.id!, this.auth.getCurrentUser()!.uid);
+}
+confirmDeleteTask(taskId: string | undefined, event: Event) {
+  event.stopPropagation(); 
+  console.log("Attempting to delete task with ID:", taskId); 
+  if (!taskId) {
+    console.error("No Task ID provided");
+    return;
   }
 
-  loadProjects(userId: string) {
-    this.projects$ = this.projectService.getProjects(userId);
+  if (confirm('Are you sure you want to delete this task?')) {
+    this.taskService.deleteTask(taskId)
+      .then(() => {
+        // We don't need to change this.page because we are already on the tasks page
+        console.log('Task deleted successfully');
+      })
+      .catch(err => {
+        console.error('Delete failed:', err);
+        alert('Permission Denied: You can only delete tasks you created.');
+      });
   }
+}
+
 }
