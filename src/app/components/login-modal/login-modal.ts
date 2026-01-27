@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-login-modal',
   imports: [],
+  standalone: true,
   templateUrl: './login-modal.html',
   styleUrl: './login-modal.css',
 })
