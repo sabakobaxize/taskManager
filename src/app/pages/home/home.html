@@ -1,1 +1,52 @@
-<p>home works!</p>
+<div class="home">
+
+  <div class="top-bar">
+    <div class="brand">Project Manager</div>
+
+    <div class="top-actions">
+      @if (user$ | async; as user) {
+        <span>{{ user.email }}</span>
+        <button (click)="auth.logout()">Logout</button>
+      } @else {
+        <button (click)="openLoginModal()">Login</button>
+        <button (click)="openRegisterModal()">Register</button>
+      }
+    </div>
+  </div>
+
+  <div class="projects-page">
+    <div class="projects-header">
+      <h2>Your Projects</h2>
+      <button (click)="openCreateProjectModal()">+ Create Project</button>
+    </div>
+
+    <div class="grid">
+      @for (project of (projects$ | async); track project.id) {
+        <div class="card" (click)="openTasks(project)">
+          <h3>{{ project.title }}</h3>
+          <p>Click to open tasks</p>
+        </div>
+      } @empty {
+        <p>No projects found. Create one to get started!</p>
+      }
+    </div>
+  </div>
+
+  @if (page === 'tasks') {
+    <div class="tasks-page">
+      <div class="tasks-header">
+        <h2>{{ selectedProject?.title }}</h2>
+        <button (click)="openCreateTaskModal()">+ Task</button>
+      </div>
+
+      <div class="list">
+        @for (task of (tasks$ | async); track task.id) {
+          <div class="list-item">
+            {{ task.title }}
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+</div>

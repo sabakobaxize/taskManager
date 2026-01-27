@@ -1,1 +1,13 @@
-<p>create-project-modal works!</p>
+
+<div   class="modal">
+  <h2>Create Project</h2>
+
+  <form [formGroup]="form">
+    <input formControlName="title" placeholder="Project Title" />
+    <textarea formControlName="description" placeholder="Description (optional)"></textarea>
+  </form>
+
+  <button (click)="createProject()">Create</button>
+  
+<button (click)="close()">Close</button>
+</div>

@@ -1,1 +1,10 @@
-<p>create-task-modal works!</p>
+<div class="modal">
+  <h2>Create Task</h2>
+
+  <form [formGroup]="form">
+    <input formControlName="title" placeholder="Task Title" />
+  </form>
+
+  <button (click)="createTask()">Create</button>
+</div>
+<button (click)="close()">Close</button>
