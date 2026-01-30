@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { CreateProjectModal } from '../../components/create-project-modal/create-project-modal';
 import { switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { user } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
@@ -27,9 +27,9 @@ export class Home {
   tasks$!: Observable<Task[]>;
 
   selectedProject: Project | null = null;
-  page: 'projects' | 'tasks' = 'projects';
 
   constructor(
+    private router: Router,
     public auth: AuthService,            // <-- make public
     private projectService: ProjectService,
     private taskService: TaskService,
@@ -59,7 +59,7 @@ confirmDelete(projectId: string | undefined, event: Event) {
         // If the user was looking at the tasks for this project, clear them
         if (this.selectedProject?.id === projectId) {
           this.selectedProject = null;
-          this.page = 'projects';
+       
         }
       })
       .catch(err => {
@@ -101,10 +101,9 @@ openCreateProjectModal() {
   });
 }
 openTasks(project: Project) {
-  this.selectedProject = project;
-  this.page = 'tasks';
-  this.tasks$ = this.taskService.getTasks(project.id!, this.auth.getCurrentUser()!.uid);
-}
+  this.router.navigate(['/tasks'], { 
+    state: { data: project } 
+  });}
 confirmDeleteTask(taskId: string | undefined, event: Event) {
   event.stopPropagation(); 
   console.log("Attempting to delete task with ID:", taskId); 

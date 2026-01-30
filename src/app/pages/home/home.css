@@ -61,3 +61,21 @@
     grid-template-columns: 1fr;
   }
 }
+:host {
+  --primary: #6366f1;    /* Modern Indigo */
+  --primary-hover: #4f46e5;
+  --bg-main: #f8fafc;    /* Light Grayish Blue */
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --danger: #ef4444;
+  --border: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.home {
+  background-color: var(--bg-main);
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-main);
+}

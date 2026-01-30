@@ -1,0 +1,49 @@
+  <div class="tasks">
+  <div class="top-bar">
+    <div class="brand">Project Manager</div>
+    <div class="top-actions">
+        <button routerLink="/">get back to home</button>
+    </div>
+    </div>
+
+  <div class="tasks-page">
+  <div class="tasks-header">
+    <h2>{{ project.title }}</h2>
+    @if(progress$ | async; as progress) {
+    @if(progress === 100) {
+      <span class="status done">✔️ Completed</span>
+    } @else {
+      <span class="status pending">⏳ In Progress</span>
+      <div class="progress-bar">
+  <div class="fill" [style.width.%]="progress$ | async"></div>
+</div>
+<span>{{ progress$ | async }}% Complete</span>
+    }
+}
+    <button class="primary-btn" (click)="openCreateTaskModal()">+ Task</button>
+  </div>
+
+  <div class="list">
+    @for (task of (tasks$ | async); track task.id) {
+      <div class="list-item" [class.completed]="task.done">
+        
+        <div class="task-info">
+          <input 
+            type="checkbox" 
+            [checked]="task.done" 
+            (change)="toggleTaskStatus(task)"
+            class="task-check"
+          >
+          <span class="task-title">{{ task.title }}</span>
+        </div>
+
+        <button class="delete-btn" (click)="confirmDeleteTask(task.id, $event)">
+          🗑️ Delete
+        </button>
+      </div>
+    } @empty {
+      <p class="empty-state">No tasks found. Click "+ Task" to add one!</p>
+    }
+  </div>
+</div>
+</div>

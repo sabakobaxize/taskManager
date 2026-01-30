@@ -29,12 +29,16 @@ export class LoginModal {
 
   login() {
     this.auth.login(this.form.value.email!, this.form.value.password!)
-      .then(() => this.dialogRef.close());
+      .then(() => this.dialogRef.close()).catch(error => {
+        alert('Login failed: ' + error.message);
+      });
   }
 
   register() {
     this.auth.register(this.form.value.email!, this.form.value.password!)
-      .then(() => this.dialogRef.close());
+      .then(() => this.dialogRef.close()).catch(error => {
+        alert('register failed: ' + error.message);
+      });
   }
 
   loginWithGoogle() {

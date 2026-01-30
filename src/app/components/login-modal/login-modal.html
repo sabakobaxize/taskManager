@@ -6,7 +6,11 @@
 }
 <input placeholder="Email" formControlName="email" />
 <input placeholder="Password" type="password"  formControlName="password" />
-
+@if(mode === 'login'){
+<button (click)="login()">login</button>
+} @else{
+<button (click)="register()">register</button>
+}
 <button (click)="close()">Close</button>
 <button (click)="loginWithGoogle()">Continue with Google</button>
 </form>
