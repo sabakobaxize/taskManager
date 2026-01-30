@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+ match /databases/{database}/documents {
+    
+    // Match any document in the 'projects' collection
+    match /projects/{projectId} {
+      // Allow user to read/write ONLY if the document's ownerId matches their Auth UID
+      allow read, delete, update: if request.auth != null && resource.data.ownerId == request.auth.uid;
+      
+      // Allow creation if the user is logged in and they set themselves as the owner
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.ownerId;
+    }
+match /tasks/{taskId} {
+      // Use 'resource' for existing data (Delete/Update/Read)
+      allow read, delete, update: if request.auth != null && resource.data.ownerId == request.auth.uid;
+      
+      // Use 'request.resource' for incoming data (Create)
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+    }
+    
+  }
+}
