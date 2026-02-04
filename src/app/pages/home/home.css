@@ -1,81 +1,212 @@
+/* Container & Layout */
 .home {
-  padding: 20px;
+  padding: 24px;
+  background-color: var(--bg-main);
+  min-height: 100vh;
 }
 
+/* Top Navigation Bar */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 24px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 10;
 }
 
-.burger {
-  font-size: 20px;
-  margin-right: 10px;
+.brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.5px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 20px;
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.card {
-  padding: 20px;
-  background: #f5f5f5;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s;
+.top-actions span {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-}
-
-.tasks-page {
-  margin-top: 20px;
-}
-
-.tasks-header {
+/* Projects Header Section */
+.projects-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* INCREASED MARGIN: Pushes the grid further down */
+  margin-bottom: 48px; 
+  position: relative;
+  z-index: 5;
+  background-color: var(--bg-main);
+  padding: 4px 0;
 }
 
-.list {
-  margin-top: 10px;
+.projects-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* Button size remains exactly as you requested */
+.projects-header button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.projects-header button:hover {
+  background: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+/* Project Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  /* ADDED PADDING: Extra breathing room for card hover lift */
+  padding-top: 12px; 
+  position: relative;
+  z-index: 1;
+}
+
+/* Project Cards */
+.card {
+  position: relative;
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-.list-item {
-  padding: 12px;
-  background: #f2f2f2;
-  border-radius: 10px;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+  border-color: var(--primary);
+  z-index: 2; 
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+.card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--text-main);
+}
+
+.card h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.card p {
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Status Badges */
+.status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.status.done {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.status.pending {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+/* Delete Button on Card */
+.delete-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 600px) {
+  .home {
+    padding: 16px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .projects-header {
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px; /* Still maintains space on mobile */
+  }
+
+  .projects-header h2 {
+    font-size: 1.2rem;
+  }
+
   .grid {
     grid-template-columns: 1fr;
+    padding-top: 8px;
   }
-}
-:host {
-  --primary: #6366f1;    /* Modern Indigo */
-  --primary-hover: #4f46e5;
-  --bg-main: #f8fafc;    /* Light Grayish Blue */
-  --bg-card: #ffffff;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --danger: #ef4444;
-  --border: #e2e8f0;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
-.home {
-  background-color: var(--bg-main);
-  min-height: 100vh;
-  font-family: 'Inter', system-ui, sans-serif;
-  color: var(--text-main);
 }

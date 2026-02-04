@@ -6,20 +6,25 @@
     <div class="top-actions">
       @if (user$ | async; as user) {
         <span>{{ user.email }}</span>
-        <button (click)="auth.logout()">Logout</button>
+        <button class="btn-primary" (click)="auth.logout()">Logout</button>
       } @else {
-        <button (click)="openLoginModal()">Login</button>
-        <button (click)="openRegisterModal()">Register</button>
+        <button   class="btn-primary"(click)="openLoginModal()">Login</button>
+        <button  class="btn-primary" (click)="openRegisterModal()">Register</button>
       }
     </div>
   </div>
 
-  <div class="projects-page">
-    <div class="projects-header">
-      <h2>Your Projects</h2>
-      <button (click)="openCreateProjectModal()">+ Create Project</button>
-    </div>
 
+  <div class="projects-page">
+@if (user$ | async) {
+    <button class="btn-primary" (click)="openCreateProjectModal()">
+      <span>+</span> Create Project
+    </button>
+  } @else {
+    <button class="btn-secondary" (click)="openLoginModal()">
+      Login to Create
+    </button>
+  }
     <div class="grid">
       @for (project of (projects$ | async); track project.id) {
         <div class="card" (click)="openTasks(project)">

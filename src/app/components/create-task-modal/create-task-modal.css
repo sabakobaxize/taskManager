@@ -1,0 +1,104 @@
+/* This styles the .modal which acts as your card container */
+.modal {
+  background: white;
+  width: 95%; 
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  margin: auto;
+  
+  /* CRITICAL: Fixes horizontal scrollbar issues */
+  box-sizing: border-box; 
+  overflow: hidden; 
+}
+
+/* Header style */
+h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 10px 0;
+  letter-spacing: -0.5px;
+}
+
+/* Ensure form inside doesn't add extra padding/width */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Input style */
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background-color: #f8fafc;
+  font-size: 1rem;
+  transition: border-color 0.2s, background-color 0.2s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+input:focus {
+  background-color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* Global button reset for the modal area */
+button {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Create Button (Primary) */
+/* Targeted as the first button following the form in your structure */
+form + button {
+
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+form{
+  background: var(--primary);
+  color: white;
+}
+form{
+  filter: brightness(1.1);
+}
+
+/* Close Button (Secondary) */
+/* Targeted as the second button in your structure */
+button:nth-of-type(2) {
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  margin-top: 8px; /* Added some space between Create and Close */
+}
+
+
+/* Responsive adjustment */
+@media (max-width: 480px) {
+  .modal {
+    padding: 24px;
+    width: 90%;
+  }
+}

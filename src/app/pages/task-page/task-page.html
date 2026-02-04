@@ -2,13 +2,14 @@
   <div class="top-bar">
     <div class="brand">Project Manager</div>
     <div class="top-actions">
-        <button routerLink="/">get back to home</button>
+        <button class="btn-secondary" routerLink="/">get back to home</button>
     </div>
     </div>
 
   <div class="tasks-page">
   <div class="tasks-header">
     <h2>{{ project.title }}</h2>
+    
     @if(progress$ | async; as progress) {
     @if(progress === 100) {
       <span class="status done">✔️ Completed</span>
@@ -20,14 +21,14 @@
 <span>{{ progress$ | async }}% Complete</span>
     }
 }
-    <button class="primary-btn" (click)="openCreateTaskModal()">+ Task</button>
+    <button class="btn-primary" (click)="openCreateTaskModal()">+ Task</button>
   </div>
 
   <div class="list">
     @for (task of (tasks$ | async); track task.id) {
-      <div class="list-item" [class.completed]="task.done">
+      <div class="list-item" [class.completed]="task.done" (click)="toggleTaskStatus(task)">
         
-        <div class="task-info">
+        <div class="task-info" >
           <input 
             type="checkbox" 
             [checked]="task.done" 

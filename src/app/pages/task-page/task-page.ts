@@ -22,6 +22,7 @@ export class TaskPage implements OnInit {
   tasks$!: Observable<Task[]>;
   progress$!: Observable<number>;
   project!: Project;
+  project$!: Observable<Project | undefined>;
   constructor(
     private router: Router,
     public auth: AuthService,
@@ -34,31 +35,35 @@ export class TaskPage implements OnInit {
     this.project = navigation?.extras.state?.['data'];
    
   }
-  ngOnInit(): void{
-    if(this.project){
-    this.openTasks();}
+ ngOnInit(): void {
+  if (this.project?.id) {
+    // 1. Initialize the live stream for the project info
+    this.project$ = this.projectService.getProjectById(this.project.id);
 
-this.progress$ = this.tasks$.pipe(
+    // 2. Load the tasks
+    this.openTasks();
+
+    // 3. Setup the progress stream
+    this.progress$ = this.tasks$.pipe(
       map(tasks => {
-        if (!tasks || tasks.length === 0) return 0;
+        if (!tasks?.length) return 0;
         const doneCount = tasks.filter(t => t.done).length;
         return Math.round((doneCount / tasks.length) * 100);
       }),
       tap(percentage => {
-        if (percentage === 100) {
-          // Logic to update project status when 100%
-          this.projectService.updateProjectStatus(this.project.id!, true).catch(err => {
-            console.error("Failed to update project status:", err);
-          });
-        }else{
-          this.projectService.updateProjectStatus(this.project.id!, false).catch(err => {
-            console.error("Failed to update project status:", err);
-          });
+        const shouldBeDone = percentage === 100;
+        
+        // Only update Firebase if the status is actually changing
+        // This prevents infinite loops or wasted document writes
+        if (this.project.isDone !== shouldBeDone) {
+          this.project.isDone = shouldBeDone; // Keep local copy in sync
+          this.projectService.updateProjectStatus(this.project.id!, shouldBeDone)
+            .catch(err => console.error("Update failed:", err));
         }
       })
     );
+  }
 }
-
   openCreateTaskModal() {
     if (!this.project) return;
 

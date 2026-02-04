@@ -2,3 +2,76 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* --- GLOBAL BUTTON SYSTEM --- */
+
+/* 1. Reset & Base Style - Applies to all buttons using these classes */
+.btn-primary, .btn-secondary, .btn-danger, .btn-success {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px; /* Modern rounded look */
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+
+/* 2. Primary Button (Main Actions: Login, Create Task) */
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+  filter: brightness(1.1);
+}
+
+/* 3. Secondary Button (Neutral Actions: Cancel, Close) */
+.btn-secondary {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+/* 4. Danger Button (Delete, Remove) */
+.btn-danger {
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
+}
+
+.btn-danger:hover {
+  background-color: #e11d48 !important;
+  color: #ffffff !important;
+}
+
+/* 5. Success Button (Complete, Mark Done) */
+.btn-success {
+  background-color: #f0fdf4 !important;
+  color: #16a34a !important;
+}
+
+.btn-success:hover {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+/* 6. Click Effect for all buttons */
+.btn-primary:active, .btn-secondary:active, .btn-danger:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+}

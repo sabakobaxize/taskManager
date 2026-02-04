@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, deleteDoc, doc, query, where,} from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, deleteDoc, doc, query, where, docData,} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
 import { updateDoc } from 'firebase/firestore';
@@ -18,12 +18,17 @@ export class ProjectService {
   
   return collectionData(q, { idField: 'id' }) as Observable<Project[]>;
 }
-updateProjectStatus(projectIc: string, isDone: boolean) {
-  const projectDocRef = doc(this.firestore, `projects/${projectIc}`);
+updateProjectStatus(projectId: string, isDone: boolean) {
+  const projectDocRef = doc(this.firestore, `projects/${projectId}`);
   
   // Directly updates the boolean field in Firestore
   return updateDoc(projectDocRef, { isDone: isDone });
 }
+getProjectById(projectId: string): Observable<Project | undefined> {
+    const projectDocRef = doc(this.firestore, `projects/${projectId}`);
+    // idField ensures the document ID is included in the object returned
+    return docData(projectDocRef, { idField: 'id' }) as Observable<Project>;
+  }
 
   addProject(project: Project) {
     const ref = collection(this.firestore, 'projects');

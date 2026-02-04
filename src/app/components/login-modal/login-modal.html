@@ -7,10 +7,10 @@
 <input placeholder="Email" formControlName="email" />
 <input placeholder="Password" type="password"  formControlName="password" />
 @if(mode === 'login'){
-<button (click)="login()">login</button>
+<button class="btn-primary" (click)="login()">login</button>
 } @else{
-<button (click)="register()">register</button>
+<button class="btn-primary" (click)="register()">register</button>
 }
-<button (click)="close()">Close</button>
-<button (click)="loginWithGoogle()">Continue with Google</button>
+<button class="btn-primary" (click)="loginWithGoogle()">Continue with Google</button>
+<button class="btn-danger" (click)="close()">Close</button>
 </form>
