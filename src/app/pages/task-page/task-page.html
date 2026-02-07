@@ -23,7 +23,12 @@
 }
     <button class="btn-primary" (click)="openCreateTaskModal()">+ Task</button>
   </div>
-
+ @if(loadingTasks) {
+ <div class="loader-wrapper">
+  <div class="spinner"></div>
+  <p>Fetching tasks...</p>
+</div>
+  } @else {
   <div class="list">
     @for (task of (tasks$ | async); track task.id) {
       <div class="list-item" [class.completed]="task.done" (click)="toggleTaskStatus(task)">
@@ -46,5 +51,6 @@
       <p class="empty-state">No tasks found. Click "+ Task" to add one!</p>
     }
   </div>
+}
 </div>
 </div>

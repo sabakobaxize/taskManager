@@ -102,3 +102,62 @@ button:nth-of-type(2) {
     width: 90%;
   }
 }
+/* Container for the whole modal content */
+.modal {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual input styling */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* Focus state for a "clean" feel */
+input:focus {
+  border-color: #3f51b5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+}
+
+/* ERROR STATE: Red border when invalid and touched */
+input.ng-invalid.ng-touched {
+  border-color: #f44336;
+}
+
+/* The space reserved for the error message */
+.error-spacer {
+  min-height: 20px;   /* This prevents the "Close" button from moving down when error appears */
+  margin-top: 4px;    /* Space between input and error text */
+  margin-bottom: 8px; /* Space between error text and the next element */
+}
+
+/* Error text styling */
+.error {
+  color: #f44336;
+  font-size: 12px;
+  font-weight: 500;
+  display: block;
+  animation: fadeIn 0.3s ease; /* Subtle entry animation */
+}
+
+/* Subtle fade-in for the error message */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.btn-primary:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

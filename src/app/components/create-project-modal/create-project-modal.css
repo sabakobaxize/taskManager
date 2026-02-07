@@ -102,3 +102,38 @@ button:nth-of-type(2) {
     /* Max-width naturally shrinks on mobile */
   }
 }
+/* 1. The Error State for Inputs */
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched {
+  border-color: #ef4444; /* A clean modern red */
+  background-color: #fef2f2; /* Light red tint */
+}
+
+/* 2. The Spacer (Prevents the modal from jumping) */
+.error-spacer {
+  min-height: 20px; 
+  margin-top: -14px; /* Pulls the spacer closer to the input it belongs to */
+  margin-bottom: 4px;
+}
+
+/* 3. The Error Text itself */
+.error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: block;
+  padding-left: 4px;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 4. Disable Button Styling */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}

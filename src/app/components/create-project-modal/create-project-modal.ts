@@ -14,7 +14,7 @@ import { Project } from '../../models/project.model';
 })
 export class CreateProjectModal {
   form = new FormGroup({
-    title: new FormControl('', Validators.required),
+title: new FormControl('',[ Validators.required, Validators.minLength(3)]),
     description: new FormControl(''),
   });
 
@@ -25,6 +25,7 @@ export class CreateProjectModal {
   ) {}
 
   createProject() {
+        if (this.form.invalid) return; // Guard clause
     const project: Project = {
       ownerId: this.data.uid,
       title: this.form.value.title as string,

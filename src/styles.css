@@ -37,37 +37,37 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* 3. Secondary Button (Neutral Actions: Cancel, Close) */
 .btn-secondary {
-  background-color: #ffffff !important;
-  color: #475569 !important;
-  border: 1px solid #e2e8f0 !important;
+  background-color: #ffffff ;
+  color: #475569 ;
+  border: 1px solid #e2e8f0 ;
 }
 
 .btn-secondary:hover {
-  background-color: #f8fafc !important;
-  border-color: #cbd5e1 !important;
-  color: #1e293b !important;
+  background-color: #f8fafc ;
+  border-color: #cbd5e1 ;
+  color: #1e293b ;
 }
 
 /* 4. Danger Button (Delete, Remove) */
 .btn-danger {
-  background-color: #fff1f2 !important;
-  color: #e11d48 !important;
+  background-color: #fff1f2 ;
+  color: #e11d48 ;
 }
 
 .btn-danger:hover {
-  background-color: #e11d48 !important;
-  color: #ffffff !important;
+  background-color: #e11d48 ;
+  color: #ffffff ;
 }
 
 /* 5. Success Button (Complete, Mark Done) */
 .btn-success {
-  background-color: #f0fdf4 !important;
-  color: #16a34a !important;
+  background-color: #f0fdf4 ;
+  color: #16a34a ;
 }
 
 .btn-success:hover {
-  background-color: #16a34a !important;
-  color: #ffffff !important;
+  background-color: #16a34a ;
+  color: #ffffff ;
 }
 
 /* 6. Click Effect for all buttons */

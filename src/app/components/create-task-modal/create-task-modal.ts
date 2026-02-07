@@ -15,7 +15,7 @@ import { user } from '@angular/fire/auth';
 })
 export class CreateTaskModal {
   form = new FormGroup({
-    title: new FormControl('', Validators.required),
+    title: new FormControl('',[ Validators.required, Validators.minLength(2)]),
   });
 
   constructor(
@@ -25,6 +25,7 @@ export class CreateTaskModal {
   ) {}
 
   createTask() {
+        if (this.form.invalid) return; // Guard clause
     const task: Task = {
       projectId: this.data.projectId,
       ownerId: this.data.ownerId,

@@ -13,10 +13,10 @@ import { AuthService } from '../../services/auth-service';
 })
 export class LoginModal {
   mode: 'login' | 'register';
-
-  form = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl('') 
   });
 
   constructor(
@@ -25,6 +25,17 @@ export class LoginModal {
     @Inject(MAT_DIALOG_DATA) public data: { mode: 'login' | 'register' }
   ) {
     this.mode = data.mode;
+    // Set validation for confirmPassword ONLY in register mode
+    if (this.mode === 'register') {
+      this.form.get('confirmPassword')?.setValidators([Validators.required]);
+      this.form.addValidators(this.passwordMatchValidator);
+    }
+  }
+  // Custom validator for matching passwords
+  passwordMatchValidator(control: any) {
+    const pass = control.get('password')?.value;
+    const confirm = control.get('confirmPassword')?.value;
+    return pass === confirm ? null : { mismatch: true };
   }
 
   login() {
@@ -35,6 +46,7 @@ export class LoginModal {
   }
 
   register() {
+    if (this.form.invalid) return; // Guard clause
     this.auth.register(this.form.value.email!, this.form.value.password!)
       .then(() => this.dialogRef.close()).catch(error => {
         alert('register failed: ' + error.message);

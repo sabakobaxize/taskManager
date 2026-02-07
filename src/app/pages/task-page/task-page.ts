@@ -23,6 +23,7 @@ export class TaskPage implements OnInit {
   progress$!: Observable<number>;
   project!: Project;
   project$!: Observable<Project | undefined>;
+  loadingTasks: boolean = true;
   constructor(
     private router: Router,
     public auth: AuthService,
@@ -95,7 +96,9 @@ export class TaskPage implements OnInit {
 
 
 openTasks() {
-  this.tasks$ = this.taskService.getTasks(this.project.id!, this.auth.getCurrentUser()!.uid);
+  this.tasks$ = this.taskService.getTasks(this.project.id!, this.auth.getCurrentUser()!.uid).pipe(tap(() => {
+    this.loadingTasks = false;
+  }));
 }
 confirmDeleteTask(taskId: string | undefined, event: Event) {
   event.stopPropagation();
@@ -108,7 +111,6 @@ confirmDeleteTask(taskId: string | undefined, event: Event) {
   if (confirm('Are you sure you want to delete this task?')) {
     this.taskService.deleteTask(taskId)
       .then(() => {
-        // We don't need to change this.page because we are already on the tasks page
         console.log('Task deleted successfully');
       })
       .catch(err => {

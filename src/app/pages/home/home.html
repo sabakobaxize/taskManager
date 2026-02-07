@@ -14,42 +14,51 @@
     </div>
   </div>
 
+<div class="projects-page">
+  @if ({ 
+    user: user$ | async, 
+    projects: projects$ | async 
+  }; as data) {
 
-  <div class="projects-page">
-@if (user$ | async) {
-    <button class="btn-primary" (click)="openCreateProjectModal()">
-      <span>+</span> Create Project
-    </button>
-  } @else {
-    <button class="btn-secondary" (click)="openLoginModal()">
-      Login to Create
-    </button>
-  }
-    <div class="grid">
-      @for (project of (projects$ | async); track project.id) {
-        <div class="card" (click)="openTasks(project)">
-          <h3>{{ project.title }}</h3>
-          <h4>{{ project.description }}</h4>
-             @if(project.isDone){
-      <span class="status done">✔️ Completed</span>
-    } @else {
-      <span class="status pending">⏳ In Progress</span>
-    }
-          <button class="delete-btn" (click)="confirmDelete(project.id, $event)">
-      🗑️ Delete
-    </button>
-          <p>Click to open tasks</p>
+    @if (data.user) {
+      <button class="btn-primary" (click)="openCreateProjectModal()">
+        <span>+</span> Create Project
+      </button>
+<!-- loader -->
+      @if (isLoading) {
+        <div class="loader-wrapper">
+          <div class="spinner"></div>
+          <p>Fetching projects...</p>
         </div>
-      } @empty {
-          @if (user$ | async; as user) {
-        
-        <p>No projects found. Create one to get started!</p>
-      }@else {
-       <p>Please login to view your projects.</p>
+      } @else {
+        <div class="grid">
+          @for (project of data.projects; track project.id) {
+            <div class="card" (click)="openTasks(project)">
+              <h3>{{ project.title }}</h3>
+              <h4>{{ project.description }}</h4>
+              
+              @if(project.isDone){
+                <span class="status done">✔️ Completed</span>
+              } @else {
+                <span class="status pending">⏳ In Progress</span>
+              }
+              
+              <button class="delete-btn" (click)="confirmDelete(project.id, $event)">
+                🗑️ Delete
+              </button>
+              <p>Click to open tasks</p>
+            </div>
+          } @empty {
+            <p>No projects found. Create one to get started!</p>
+          }
+        </div>
       }
-      }
-    </div>
-  </div>
-
-
+    } @else {
+      <button class="btn-secondary" (click)="openLoginModal()">
+        Login to Create
+      </button>
+      <p>Please login to view your projects.</p>
+    }
+  }
+</div>
 </div>

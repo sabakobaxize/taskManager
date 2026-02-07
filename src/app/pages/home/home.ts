@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth-service';
 import { ProjectService } from '../../services/project-service';
@@ -10,7 +10,7 @@ import { LoginModal } from '../../components/login-modal/login-modal';
 import { CreateTaskModal } from '../../components/create-task-modal/create-task-modal';
 import { CommonModule } from '@angular/common'; 
 import { CreateProjectModal } from '../../components/create-project-modal/create-project-modal';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 @Component({
@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
   styleUrl: './home.css',
 })
 export class Home {
+  isLoading: boolean = true;
   user$!: Observable<any>;
 
   projects$!: Observable<Project[]>;
@@ -44,7 +45,7 @@ export class Home {
       } else {
         return of([]); // Return empty list if no user
       }
-    })
+    }), tap(() => {this.isLoading = false})
   );   
   }
 confirmDelete(projectId: string | undefined, event: Event) {
