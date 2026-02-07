@@ -1,0 +1,93 @@
+/* Base Layout */
+.verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Use min-height for long content on tiny screens */
+  background-color: #f4f7fe;
+  padding: 20px; /* Essential: prevents card from hitting screen edges */
+  box-sizing: border-box;
+}
+
+/* The Card */
+.verify-card {
+  background: white;
+  padding: 40px 30px; /* Balanced padding */
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Limits size on desktop */
+  transition: transform 0.3s ease;
+}
+
+/* Icon & Typography */
+.icon {
+  font-size: clamp(40px, 10vw, 60px); /* Scales based on screen size */
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(1.25rem, 5vw, 1.75rem); /* Responsive heading */
+  color: #1e293b;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+p {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+/* Buttons */
+.btn-primary, .btn-disabled {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  background-color: #6366f1;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.btn-disabled {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 24px;
+  color: #6366f1;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Mobile Specific Adjustments */
+@media (max-width: 480px) {
+  .verify-card {
+    padding: 30px 20px; /* Slightly tighter padding on mobile */
+    border-radius: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}

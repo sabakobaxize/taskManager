@@ -3,7 +3,7 @@
 
   <form [formGroup]="form">
     <input formControlName="title" placeholder="Task Title" />
-      <div class="error-spacer">
+      <div class="notError"  [class.error-spacer]="form.get('title')?.invalid && form.get('title')?.touched">
       @if (form.get('title')?.invalid && form.get('title')?.touched) {
         <small class="error">Please title longer than 2 characters</small>
       }

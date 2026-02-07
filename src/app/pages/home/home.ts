@@ -20,10 +20,10 @@ import { Router } from '@angular/router';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
+export class Home implements OnInit {
   isLoading: boolean = true;
   user$!: Observable<any>;
-
+  userEmailVerified$!: Observable<boolean>;
   projects$!: Observable<Project[]>;
   tasks$!: Observable<Task[]>;
 
@@ -36,14 +36,18 @@ export class Home {
     private taskService: TaskService,
       private dialog: MatDialog
   ) {
-    this.user$ = this.auth.user$;   
+    this.user$ = this.auth.user$;     
+  }
+  ngOnInit(): void {
     //initializes projects based on user
      this.projects$ = this.user$.pipe(
     switchMap(user => {
-      if (user) {
+ // Update the email verification status
+ 
+      if (user && user.emailVerified) {
         return this.projectService.getProjects(user.uid);
       } else {
-        return of([]); // Return empty list if no user
+        return of([]);// Return empty list if no user
       }
     }), tap(() => {this.isLoading = false})
   );   

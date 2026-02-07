@@ -8,7 +8,7 @@ form {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   position: relative;
   margin: auto;
   
@@ -56,7 +56,7 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-/* Button 1: Login / Register */
+/* Button 1: Login / Register gap*/
 button:nth-of-type(1) {
 
   padding: 14px;
@@ -82,14 +82,12 @@ button:nth-of-type(2) {
 
 /* Button 3: Google */
 button:nth-of-type(3) {
-
   border: 1px solid var(--border);
   padding: 12px;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   gap: 10px;
-  margin-top: 8px;
   transition: background 0.2s;
 }
 
@@ -124,6 +122,11 @@ input {
   padding-top: 4px;  /* Space between Input and Error comment */
   padding-left: 4px;
 }
+.notError{
+    min-height: 0px; 
+  padding-top: 0px;
+  padding-left: 0px;
+}
 
 .error {
   color: #e74c3c;
@@ -142,6 +145,6 @@ input.ng-invalid.ng-touched {
 .button-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 5px;
 }

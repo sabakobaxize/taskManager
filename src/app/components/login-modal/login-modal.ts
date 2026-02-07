@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth-service';
+import { sendEmailVerification } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-modal',
@@ -21,6 +23,7 @@ form = new FormGroup({
 
   constructor(
     private auth: AuthService,
+    private router: Router,
     private dialogRef: MatDialogRef<LoginModal>,
     @Inject(MAT_DIALOG_DATA) public data: { mode: 'login' | 'register' }
   ) {
@@ -48,9 +51,19 @@ form = new FormGroup({
   register() {
     if (this.form.invalid) return; // Guard clause
     this.auth.register(this.form.value.email!, this.form.value.password!)
-      .then(() => this.dialogRef.close()).catch(error => {
+      .then((usercredentials) => {
+        const user = usercredentials.user;
+          sendEmailVerification(user).then(() => {
+            this.router.navigate(['/verify-email']); // Boot them to the verification page
+        }).catch(emailError => {
+          console.error('Email verification failed:', emailError);
+          alert('Registration successful, but failed to send verification email. Please try logging in and requesting a new verification email.');
+        });
+        this.dialogRef.close()}).catch(error => {
+      
         alert('register failed: ' + error.message);
       });
+      
   }
 
   loginWithGoogle() {

@@ -3,7 +3,7 @@
 
   <div class="field-container">
     <input placeholder="Email" formControlName="email" type="email" />
-    <div class="error-spacer">
+    <div class="notError" [class.error-spacer]="form.get('email')?.invalid && form.get('email')?.touched">
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
         <small class="error">Please enter a valid email.</small>
       }
@@ -12,7 +12,7 @@
 
   <div class="field-container">
     <input placeholder="Password" type="password" formControlName="password" />
-    <div class="error-spacer">
+    <div class="notError" [class.error-spacer]="form.get('password')?.invalid && form.get('password')?.touched" >
       @if (form.get('password')?.invalid && form.get('password')?.touched) {
         <small class="error">Minimum 8 characters required.</small>
       }
@@ -22,7 +22,7 @@
   @if (mode === 'register') {
     <div class="field-container">
       <input placeholder="Confirm Password" type="password" formControlName="confirmPassword" />
-      <div class="error-spacer">
+      <div class="notError" [class.error-spacer]="form.hasError('mismatch') && form.get('confirmPassword')?.touched">
         @if (form.hasError('mismatch') && form.get('confirmPassword')?.touched) {
           <small class="error">Passwords do not match.</small>
         }

@@ -1,0 +1,21 @@
+<div class="verify-container">
+  <div class="verify-card">
+    <div class="icon">✉️</div>
+    <h1>Verify your email</h1>
+    <p>We've sent a link to your inbox. Please click it to activate your account.</p>
+
+    <div class="action-zone">
+      @if (canResend) {
+        <button class="btn-primary" (click)='resendEmail()'>
+          Resend Verification Email
+        </button>
+      } @else {
+        <button class="btn-disabled" disabled>
+          Resend in {{ countdown }}s
+        </button>
+      }
+    </div>
+
+    <a (click)="logout()" class="back-link">logout</a>
+  </div>
+</div>

@@ -8,7 +8,7 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   position: relative;
   margin: auto;
   
@@ -33,6 +33,7 @@ form {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  
 }
 
 /* Input style */
@@ -91,7 +92,6 @@ button:nth-of-type(2) {
   padding: 10px;
   border-radius: 10px;
   font-weight: 500;
-  margin-top: 8px; /* Added some space between Create and Close */
 }
 
 
@@ -139,7 +139,11 @@ input.ng-invalid.ng-touched {
   margin-top: 4px;    /* Space between input and error text */
   margin-bottom: 8px; /* Space between error text and the next element */
 }
-
+.notError{
+    min-height: 0px; 
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 /* Error text styling */
 .error {
   color: #f44336;
